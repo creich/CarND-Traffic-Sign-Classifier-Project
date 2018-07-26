@@ -19,21 +19,13 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
-
-
 [sign_hist]: ./images_for_review/sign_histogram.png "sign histogram"
 [color_image]: ./images_for_review/color_image.png "colored street sign image"
-[grayscale_image]: ./images_for_review/grayscale_image.png "grayscale street sign image"
+[gray_image]: ./images_for_review/gray_image.png "grayscale street sign image"
+[dark_image]: ./images_for_review/dark_image.png "dark street sign image"
 [CLAHE_image]: ./images_for_review/CLAHE_image.png "image preprocessed with CLAHE (Contrast Limited Adaptive Histogram Equalization)"
 [noise_image]: ./images_for_review/noise_image.png "image augmented with random noise"
+[5_web_samples]: ./images_for_review/5_web_samples.png "5 random samples from the online database"
 
 
 ## Rubric Points
@@ -64,7 +56,7 @@ signs data set:
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data distributed between
 the different classes
 
-![alt text][sign_hist]
+![sign_hist]
 
 ### Design and Test a Model Architecture
 
@@ -77,12 +69,13 @@ images within the given data. Normalization somehow felt like the 'standard prec
 
 Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][color_image]
-![alt text][grayscale_image]
+![color_image]
+![gray_image]
 
 Here is an example of a traffic sign image before and after CLAHE.
 
-![alt text][CLAHE_image]
+![dark_image]
+![CLAHE_image]
 
 
 For data augmentation i was trying some things like adding some blur and/or some random noise. In the end i didn't use the blur, since it seemed not to be very helpful and the results have been good already. genrealy i would expect the blur to help in the same way as adding some noise -> prevent overfitting. But again, in this case, adding some noise was much more effective for me than adding some blur.
@@ -93,7 +86,7 @@ Maybe in the future i'll have a look and try to improve my results.
 
 Here is an example of an original image and an augmented image:
 
-![alt text][noise_image]
+![noise_image]
 
 The difference between the original data set and the augmented data set is basically that i doubled the amount of training data.
 
@@ -132,23 +125,12 @@ To train the model, i basically took the stuff from the LeNet as a starting poin
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+during the approach, i noticed that prerpocessing the data is almost more valuable than a good architecture itself. the data available to train the network is the essential key to success. no matter if you directly have it, or even artificially create it. especially if we're talking about images. there are so many well known techniques to enhance the qulity of an image, even for the human eye.
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+since i used the well known LeNet5 as a basis (as proposed by the course), i already had a very good starting point. combined with good preprocessing, it almost gave the necessary results. but since i read the paper that was linked within the project descripton, i got curious about the direct connection between the first convolutional layer and the fully connected layers. in fact, those changes increased the accurecy and even slightly the robustness of the net.
+for whatever reason, i got the impression that adding some dropout layers in variuous points didn't help much. instead it sometimes even decreased the accuracy even on the test data.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+so far i found this lesson very insightful and got a lot better feeling of how to apply my new knowledge. but i also realized that it might take a lot more expreience to design a neural net.
 
 ### Test a Model on New Images
 
@@ -156,10 +138,9 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![5_web_samples]
 
-The first image might be difficult to classify because ...
+I just picked them randomly from the complete German Traffic Sign Dataset.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -167,31 +148,61 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Vehicles over 3.5 metric tons prohibited      		| Vehicles over 3.5 metric tons prohibited   									| 
+| Children crossing     			| Children crossing 										|
+| No passing					| No passing											|
+| Speed limit (100km/h)	      		| Speed limit (100km/h)					 				|
+| No passing for vehicles over 3.5 metric tons			| No passing for vehicles over 3.5 metric tons      							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%. I tried it several time, and usually got 4-5 out of 5, which compares pretty well to the given accuracy on the test data set. so i feel the sollution is pretty robust, but would recommend further testing before any real time usage. maybe some data from a completely different source e.g.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 20th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+Here are the top three soft max probabilities for each of those 5 images:
+
+correct prediction: 16 -- Vehicles over 3.5 metric tons prohibited
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| .37         			| 16 -- Vehicles over 3.5 metric tons prohibited   									| 
+| .16     				| 15 --	No vehicles 										|
+| .14					| 40 --	Roundabout mandatory											|
 
+correct prediction: 28 -- Children crossing
 
-For the second image ... 
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .51         			| 28 -- Children crossing   									| 
+| .29     				| 24 --	Road narrows on the right 										|
+| .27					| 25 --	Road work											|
+
+correct prediction: 9 -- No passing
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .57         			| 9 -- No passing   									| 
+| .14     				| 41 	End of no passing 										|
+| .13					| 16 	Vehicles over 3.5 metric tons prohibited											|
+
+correct prediction: 7 -- Speed limit (100km/h)
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .37         			| 7 -- Speed limit (100km/h)   									| 
+| .27     				| 8 --	Speed limit (120km/h) 										|
+| .21					| 5 --	Speed limit (80km/h)										|
+
+correct prediction: 10 -- No passing for vehicles over 3.5 metric tons
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .40         			| 10 -- No passing for vehicles over 3.5 metric tons   									| 
+| .13     				| 7 --	Speed limit (100km/h) 										|
+| .12					| 9 --	No passing											|
+
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
