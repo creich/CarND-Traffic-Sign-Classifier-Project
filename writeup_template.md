@@ -140,7 +140,8 @@ Here are five German traffic signs that I found on the web:
 
 ![5_web_samples]
 
-I just picked them randomly from the complete German Traffic Sign Dataset.
+I just picked them randomly from the complete German Traffic Sign Dataset. The last two of them are pretty dark. especially the last one is barely visible even for the human eye. Here the CLAHE comes into play, since without it the model would have (as well as a human) had some diffculties to determine the right classification. You can clearly see that even using CLAHE the NET has some difficulties, if you check the given prediction probabilities in the tables in point 3.
+The second image is quite the opposite of that,, since it's pretty bright, which also might affect the correct classification. again, using CLAHE relly helps to flatten the histogram, which makes the usefull information stand out more precise.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -149,9 +150,9 @@ Here are the results of the prediction:
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Vehicles over 3.5 metric tons prohibited      		| Vehicles over 3.5 metric tons prohibited   									| 
-| Children crossing     			| Children crossing 										|
-| No passing					| No passing											|
-| Speed limit (100km/h)	      		| Speed limit (100km/h)					 				|
+| Priority road     			| Priority road 										|
+| No passing for vehicles over 3.5 metric tons					| No passing for vehicles over 3.5 metric tons											|
+| Speed limit (50km/h)	      		| Speed limit (50km/h)					 				|
 | No passing for vehicles over 3.5 metric tons			| No passing for vehicles over 3.5 metric tons      							|
 
 
@@ -167,41 +168,51 @@ correct prediction: 16 -- Vehicles over 3.5 metric tons prohibited
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .37         			| 16 -- Vehicles over 3.5 metric tons prohibited   									| 
-| .16     				| 15 --	No vehicles 										|
-| .14					| 40 --	Roundabout mandatory											|
+| .45         			| 16 -- Vehicles over 3.5 metric tons prohibited   									| 
+| .21     				| 9 --	No passing 										|
+| .20					| 10 --	No passing for vehicles over 3.5 metric tons											|
+| .17					| 7 --	Speed limit (100km/h)											|
+| .17					| 40 --	Roundabout mandatory											|
 
-correct prediction: 28 -- Children crossing
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .51         			| 28 -- Children crossing   									| 
-| .29     				| 24 --	Road narrows on the right 										|
-| .27					| 25 --	Road work											|
-
-correct prediction: 9 -- No passing
+correct prediction: 12 -- Priority road
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .57         			| 9 -- No passing   									| 
-| .14     				| 41 	End of no passing 										|
-| .13					| 16 	Vehicles over 3.5 metric tons prohibited											|
-
-correct prediction: 7 -- Speed limit (100km/h)
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .37         			| 7 -- Speed limit (100km/h)   									| 
-| .27     				| 8 --	Speed limit (120km/h) 										|
-| .21					| 5 --	Speed limit (80km/h)										|
+| .53         			| 12 --	Priority road				| 
+| .23         			| 9 --	No passing				| 
+| .12         			| 10 --	No passing for vehicles over 3.5 metric tons				| 
+| .11         			| 40 --	Roundabout mandatory				| 
+| .07         			| 35 --	Ahead only				| 
 
 correct prediction: 10 -- No passing for vehicles over 3.5 metric tons
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .40         			| 10 -- No passing for vehicles over 3.5 metric tons   									| 
-| .13     				| 7 --	Speed limit (100km/h) 										|
-| .12					| 9 --	No passing											|
+| .42         			| 10 --	No passing for vehicles over 3.5 metric tons				| 
+| .21         			| 7 --	Speed limit (100km/h)				| 
+| .15         			| 5 --	Speed limit (80km/h)				| 
+| .07         			| 9 --	No passing				| 
+| .04         			| 16 --	Vehicles over 3.5 metric tons prohibited				| 
+
+correct prediction: 2 -- Speed limit (50km/h)
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .40         			| 2 --	Speed limit (50km/h)				| 
+| .30         			| 5 --	Speed limit (80km/h)				| 
+| .26         			| 3 --	Speed limit (60km/h)				| 
+| .18         			| 1 --	Speed limit (30km/h)				| 
+| .05         			| 4 --	Speed limit (70km/h)				| 
+
+correct prediction: 10 -- No passing for vehicles over 3.5 metric tons
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| .24         			| 10 --	No passing for vehicles over 3.5 metric tons				| 
+| .09         			| 16 --	Vehicles over 3.5 metric tons prohibited				| 
+| .09         			| 7 --	Speed limit (100km/h)				| 
+| .06         			| 9 --	No passing				| 
+| .06         			| 12 --	Priority road				| 
 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
